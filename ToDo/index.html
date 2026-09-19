@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>To Do</title>
+<style>
+  :root { --bg: #fff; --fg: #111; --muted: #777; --line: #ddd; --field: #fff; --overdue: #d33; }
+  :root[data-theme=dark] { --bg: #1a1a1a; --fg: #eee; --muted: #999; --line: #3a3a3a; --field: #2a2a2a; --overdue: #f66; }
+  body { font-family: system-ui, sans-serif; max-width: 520px; margin: 2rem auto; padding: 0 16px; background: var(--bg); color: var(--fg); }
+  header { display: flex; justify-content: space-between; align-items: center; }
+  form { display: flex; flex-wrap: wrap; gap: 8px; }
+  input[type=text] { flex: 1; min-width: 0; }
+  input[type=text], input[type=date], select, button { padding: 8px; font-size: 1rem; background: var(--field); color: var(--fg); border: 1px solid var(--line); border-radius: 4px; }
+  button { cursor: pointer; }
+  button:focus-visible, input:focus-visible, select:focus-visible { outline: 2px solid #48f; outline-offset: 1px; }
+  .filters { display: flex; gap: 6px; align-items: center; margin-top: 12px; }
+  .filters .spacer { flex: 1; }
+  .filters button { padding: 4px 10px; font-size: .9rem; }
+  .filters button.active { background: var(--fg); color: var(--bg); }
+  ul { list-style: none; padding: 0; }
+  li { display: flex; align-items: center; gap: 8px; padding: 8px 0; border-bottom: 1px solid var(--line); border-left: 4px solid transparent; padding-left: 8px; }
+  li.high { border-left-color: #d33; }
+  li.medium { border-left-color: #d80; }
+  li.low { border-left-color: #2a8; }
+  li .text { flex: 1; min-width: 0; word-break: break-word; }
+  li.done .text { text-decoration: line-through; color: var(--muted); }
+  .empty-state { text-align: center; color: var(--muted); padding: 32px 16px; font-size: 0.95rem; }
+  .badge { font-size: .75rem; padding: 2px 6px; border-radius: 10px; color: #fff; }
+  .high { background: #d33; } .medium { background: #d80; } .low { background: #2a8; }
+  .due { font-size: .8rem; color: var(--muted); white-space: nowrap; }
+  .due.overdue { color: var(--overdue); font-weight: 600; }
+  #count { color: var(--muted); }
+  #undo { display: none; position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%); background: var(--fg); color: var(--bg); padding: 10px 14px; border-radius: 6px; align-items: center; gap: 12px; }
+  #undo button { background: transparent; color: inherit; border: 1px solid currentColor; padding: 2px 10px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>To Do</h1>
+  <button id="theme" type="button"></button>
+</header>
+<form id="form">
+  <input type="text" id="text" placeholder="What needs doing?" aria-label="Task" autofocus maxlength="500">
+  <select id="priority" aria-label="Priority">
+    <option value="high">High</option>
+    <option value="medium" selected>Medium</option>
+    <option value="low">Low</option>
+  </select>
+  <input type="date" id="due" aria-label="Due date">
+  <button type="submit">Add</button>
+</form>
+<div class="filters" id="filters">
+  <button type="button" data-filter="all">All</button>
+  <button type="button" data-filter="active">Active</button>
+  <button type="button" data-filter="done">Done</button>
+  <span class="spacer"></span>
+  <button type="button" id="clear">Clear completed</button>
+</div>
+<ul id="list"></ul>
+<p id="count"></p>
+<div id="undo" role="status"><span>Task deleted.</span><button type="button" id="undoBtn">Undo</button></div>
+<script src="app.js"></script>
+</body>
+</html>
