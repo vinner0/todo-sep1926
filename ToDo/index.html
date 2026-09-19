@@ -5,8 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>To Do</title>
 <style>
-  :root { --bg: #fff; --fg: #111; --muted: #777; --line: #ddd; --field: #fff; --overdue: #d33; }
-  :root[data-theme=dark] { --bg: #1a1a1a; --fg: #eee; --muted: #999; --line: #3a3a3a; --field: #2a2a2a; --overdue: #f66; }
+  :root { --bg: #fff; --fg: #111; --muted: #777; --line: #ddd; --field: #fff; --overdue: #d33; --heading: #1a56db; }
+  :root[data-theme=dark] { --bg: #1a1a1a; --fg: #eee; --muted: #999; --line: #3a3a3a; --field: #2a2a2a; --overdue: #f66; --heading: #6ea8fe; }
+  h1 { color: var(--heading); }
   body { font-family: system-ui, sans-serif; max-width: 520px; margin: 2rem auto; padding: 0 16px; background: var(--bg); color: var(--fg); }
   header { display: flex; justify-content: space-between; align-items: center; }
   form { display: flex; flex-wrap: wrap; gap: 8px; }
